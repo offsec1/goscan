@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/c-bata/go-prompt"
 	"github.com/fatih/color"
 	"github.com/marco-lancini/goscan/core/cli"
 	"github.com/marco-lancini/goscan/core/utils"
@@ -56,13 +55,15 @@ func main() {
 	// Setup core
 	initCore()
 
+	cli.Executor("show hosts")
+
 	// Start CLI
-	p := prompt.New(
-		cli.Executor,
-		cli.Completer,
-		prompt.OptionTitle("goscan: Interactive Network Scanner"),
-		prompt.OptionPrefix("[goscan] > "),
-		prompt.OptionInputTextColor(prompt.White),
-	)
-	p.Run()
+	//p := prompt.New(
+	//	cli.Executor,
+	//	cli.Completer,
+	//	prompt.OptionTitle("goscan: Interactive Network Scanner"),
+	//	prompt.OptionPrefix("[goscan] > "),
+	//	prompt.OptionInputTextColor(prompt.White),
+	//)
+	//p.Run()
 }
