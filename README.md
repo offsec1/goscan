@@ -1,5 +1,6 @@
 <p align="center"><img src="https://raw.githubusercontent.com/marco-lancini/goscan/master/.github/goscan_logo.png" width="40%"></p>
 
+This is a fork from: [GoScan](https://www.github.com/marco-lancini/goscan)
 
 **GoScan** is an interactive network scanner client, featuring auto-completion, which provides abstraction and automation over nmap.
 
