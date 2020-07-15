@@ -14,4 +14,5 @@ services:
         environment:
             GOSCAN_OUT_FOLDER: /data/goscan/
             GOSCAN_DB_PATH: /data/goscan/goscan.db
+            RABBITMQ_URI: amqp://guest:guest@localhost:5672/
             DEBUG: 0

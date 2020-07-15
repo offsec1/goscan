@@ -63,6 +63,16 @@ This tool extends GoScan.
 It integrates the possibility to control GoScan via RabbitMQ messages. 
 This makes GoScan remotely usable.
 
+## Script overview
+
+* `load target SINGLE [IP]`
+* `sweep PING [IP]`
+* `portscan TCP-FULL [IP]`
+* `special dns DISCOVERY scanme.org`
+* `special dns BRUTEFORCE scanme.org`
+* `show hosts`
+* `show ports`
+
 ## External Integrations
 
 The _Service Enumeration_ phase currently supports the following integrations:
