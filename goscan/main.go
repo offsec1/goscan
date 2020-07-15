@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/fatih/color"
-	"github.com/marco-lancini/goscan/core/cli"
+	"github.com/marco-lancini/goscan/core/rabbitmq"
 	"github.com/marco-lancini/goscan/core/utils"
 	"strings"
 )
@@ -55,7 +55,7 @@ func main() {
 	// Setup core
 	initCore()
 
-	cli.Executor("show hosts")
+	rabbitmq.Receive()
 
 	// Start CLI
 	//p := prompt.New(
