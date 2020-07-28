@@ -17,18 +17,18 @@ func Receive() {
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
-		"GoScan", // name
-		false,    // durable
-		false,    // delete when unused
-		false,    // exclusive
-		false,    // no-wait
-		nil,      // arguments
+		"GoScanCommands", // name
+		false,            // durable
+		false,            // delete when unused
+		false,            // exclusive
+		false,            // no-wait
+		nil,              // arguments
 	)
 	failOnError(err, "Failed to declare a queue")
 
 	msgs, err := ch.Consume(
 		q.Name, // queue
-		"",     // consumer
+		"be01", // consumer
 		true,   // auto-ack
 		false,  // exclusive
 		false,  // no-local

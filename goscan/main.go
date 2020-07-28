@@ -55,6 +55,7 @@ func main() {
 	// Setup core
 	initCore()
 
+	// Start receiving stomp messages from RabbitMQ
 	rabbitmq.Receive()
 
 	// Start CLI
