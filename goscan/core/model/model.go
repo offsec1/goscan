@@ -3,7 +3,7 @@ package model
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"os"
 	"strings"
 	"sync"
@@ -14,25 +14,25 @@ var (
 )
 
 type Step int
+
 const (
 	NOT_DEFINED Step = iota
-	IMPORTED		// targets
-	SWEEPED			// targets
-	NEW				// hosts
-	SCANNED			// hosts
+	IMPORTED         // targets
+	SWEEPED          // targets
+	NEW              // hosts
+	SCANNED          // hosts
 )
+
 func (s Step) String() string {
 	return [...]string{"NOT_DEFINED", "IMPORTED", "SWEEPED", "NEW", "SCANNED"}[s]
 }
-
-
 
 // ---------------------------------------------------------------------------------------
 // UTILS
 // ---------------------------------------------------------------------------------------
 func InitDB(dbpath string) *gorm.DB {
 	// Create connection to DB
-	db, err := gorm.Open("sqlite3", dbpath)
+	db, err := gorm.Open("postgres", dbpath)
 	if err != nil {
 		fmt.Println(fmt.Sprintf("[DB ERROR] %s", err))
 		os.Exit(1)
@@ -148,7 +148,6 @@ func (s *Service) GetPort(db *gorm.DB) *Port {
 	return port
 }
 
-
 // ---------------------------------------------------------------------------------------
 // PORT
 // ---------------------------------------------------------------------------------------
@@ -200,8 +199,6 @@ func (p *Port) GetHost(db *gorm.DB) *Host {
 	db.Where("id = ?", p.HostID).Find(&host)
 	return host
 }
-
-
 
 // ---------------------------------------------------------------------------------------
 // HOST
