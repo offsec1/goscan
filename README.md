@@ -1,56 +1,36 @@
 <p align="center"><img src="https://raw.githubusercontent.com/marco-lancini/goscan/master/.github/goscan_logo.png" width="40%"></p>
 
+This is a fork from: [GoScan](https://www.github.com/marco-lancini/goscan)
 
 **GoScan** is an interactive network scanner client, featuring auto-completion, which provides abstraction and automation over nmap.
 
-Although it started as a small side-project I developed in order to learn [@golang](https://twitter.com/golang), GoScan can now be used to perform host discovery, port scanning, and service enumeration not only in situations where being stealthy is not a priority and time is limited (think at CTFs, OSCP, exams, etc.), but also (with a few tweaks in its configuration) during professional engagements.
+It uses a message-broker to receive input commands and scan targets. 
+The results of these scans are then committed to a postgres database.
 
-GoScan is also particularly suited for unstable environments (think unreliable network connectivity, lack of "`screen`", etc.), given that it fires scans and maintain their state in an SQLite database. Scans run in the background (detached from the main thread), so even if connection to the box running GoScan is lost, results can be uploaded asynchronously (more on this below). That is, data can be imported into GoScan at different stages of the process, without the need to restart the entire process from scratch if something goes wrong.
-
-In addition, the Service Enumeration phase integrates a collection of other tools (e.g., `EyeWitness`, `Hydra`, `nikto`, etc.), each one tailored to target a specific service.
-
-![demo](https://raw.githubusercontent.com/marco-lancini/goscan/master/.github/demo.gif)
+![demo](https://raw.githubusercontent.com/offsec1/goscan/master/.github/demo.gif)
 
 
 
 # Installation
 
-#### Binary installation (Recommended)
-
-Binaries are available from the [Release](https://github.com/marco-lancini/goscan/releases) page.
-
-```bash
-# Linux (64bit)
-$ wget https://github.com/marco-lancini/goscan/releases/download/v2.4/goscan_2.4_linux_amd64.zip
-$ unzip goscan_2.4_linux_amd64.zip
-
-# Linux (32bit)
-$ wget https://github.com/marco-lancini/goscan/releases/download/v2.4/goscan_2.4_linux_386.zip
-$ unzip goscan_2.4_linux_386.zip
-
-# After that, place the executable in your PATH
-$ chmod +x goscan
-$ sudo mv ./goscan /usr/local/bin/goscan
-```
-
 #### Build from source
 
 ```bash
 # Clone and spin up the project
-$ git clone https://github.com/marco-lancini/goscan.git
+$ git clone https://github.com/offsec1/goscan.git
 $ cd goscan/
 $ docker-compose up --build
 $ docker-compose run cli /bin/bash
 
 # Initialize DEP
-root@cli:/go/src/github.com/marco-lancini/goscan $ make init
-root@cli:/go/src/github.com/marco-lancini/goscan $ make setup
+root@cli:/go/src/github.com/offsec1/goscan $ make init
+root@cli:/go/src/github.com/offsec1/goscan $ make setup
 
 # Build
-root@cli:/go/src/github.com/marco-lancini/goscan $ make build
+root@cli:/go/src/github.com/offsec1/goscan $ make build
 
 # To create a multi-platform binary, use the cross command via make
-root@cli:/go/src/github.com/marco-lancini/goscan $ make cross
+root@cli:/go/src/github.com/offsec1/goscan $ make cross
 ```
 
 
@@ -58,21 +38,20 @@ root@cli:/go/src/github.com/marco-lancini/goscan $ make cross
 
 # Usage
 
-GoScan supports all the main steps of network enumeration:
+This tool extends GoScan. 
+It integrates the possibility to control GoScan via RabbitMQ messages. 
+This makes GoScan remotely usable.
 
-![process](https://raw.githubusercontent.com/marco-lancini/goscan/master/.github/goscan_process.png)
+## Message overview
+Example messages which can be sent to this tool.
 
-
-| Step | Commands |
-| ---- | ----------- |
-| 1. **Load targets**   | <ul><li>Add a single target via the CLI (must be a valid CIDR): `load target SINGLE <IP/32>`</li><li>Upload multiple targets from a text file or folder: `load target MULTI <path-to-file>`</li></ul>|
-| 2. **Host Discovery** | <ul><li>Perform a Ping Sweep: `sweep <TYPE> <TARGET>`</li><li>  Or load results from a previous discovery:<ul><li>Add a single alive host via the CLI (must be a /32): `load alive SINGLE <IP>`</li><li>Upload multiple alive hosts from a text file or folder: `load alive MULTI <path-to-file>`</li></ul></li></ul> |
-| 3. **Port Scanning** | <ul><li>Perform a port scan: `portscan <TYPE> <TARGET>`</li><li>Or upload nmap results from XML files or folder: `load portscan <path-to-file>`</li></ul> |
-| 4. **Service Enumeration** | <ul><li>Dry Run (only show commands, without performing them): `enumerate <TYPE> DRY <TARGET>`</li><li> Perform enumeration of detected services: `enumerate <TYPE> <POLITE/AGGRESSIVE> <TARGET>`</li></ul> |
-| 5. **Special Scans** | <ul><li>*EyeWitness*<ul><li>Take screenshots of websites, RDP services, and open VNC servers (KALI ONLY): `special eyewitness`</li><li>`EyeWitness.py` needs to be in the system path</li></ul></li><li>*Extract (Windows) domain information from enumeration data*<ul><li>`special domain <users/hosts/servers>`</li></ul></li><li>*DNS*<ul><li>Enumerate DNS (nmap, dnsrecon, dnsenum): `special dns DISCOVERY <domain>`</li><li>Bruteforce DNS: `special dns BRUTEFORCE <domain>`</li><li>Reverse Bruteforce DNS: `special dns BRUTEFORCE_REVERSE <domain> <base_IP>`</li></ul></li> |
-| **Utils** | <ul><li>Show results: `show <targets/hosts/ports>`</li><li>Automatically configure settings by loading a config file: `set config_file <PATH>`</li><li>Change the output folder (by default `~/goscan`): `set output_folder <PATH>`</li><li>Modify the default nmap switches: `set nmap_switches <SWEEP/TCP_FULL/TCP_STANDARD/TCP_VULN/UDP_STANDARD> <SWITCHES>`</li><li>Modify the default wordlists: `set_wordlists <FINGER_USER/FTP_USER/...> <PATH>`</li></ul> |
-
-
+* `load target SINGLE [IP]`
+* `sweep PING [IP]`
+* `portscan TCP-FULL [IP]`
+* `special dns DISCOVERY scanme.org`
+* `special dns BRUTEFORCE scanme.org`
+* `show hosts`
+* `show ports`
 
 ## External Integrations
 

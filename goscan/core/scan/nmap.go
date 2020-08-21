@@ -3,8 +3,8 @@ package scan
 import (
 	"fmt"
 	go_nmap "github.com/lair-framework/go-nmap"
-	"github.com/marco-lancini/goscan/core/model"
-	"github.com/marco-lancini/goscan/core/utils"
+	"github.com/offsec1/goscan/core/model"
+	"github.com/offsec1/goscan/core/utils"
 	"io/ioutil"
 	"path/filepath"
 	"time"
@@ -90,7 +90,6 @@ func ParseOutput(sweepXML string) *go_nmap.NmapRun {
 	}
 	return res
 }
-
 
 // ---------------------------------------------------------------------------------------
 // SCAN MANAGEMENT

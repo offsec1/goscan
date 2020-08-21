@@ -2,7 +2,7 @@ package scan
 
 import (
 	"fmt"
-	"github.com/marco-lancini/goscan/core/utils"
+	"github.com/offsec1/goscan/core/utils"
 )
 
 // ---------------------------------------------------------------------------------------

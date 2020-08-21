@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/c-bata/go-prompt"
 	"github.com/fatih/color"
-	"github.com/marco-lancini/goscan/core/cli"
-	"github.com/marco-lancini/goscan/core/utils"
+	"github.com/offsec1/goscan/core/rabbitmq"
+	"github.com/offsec1/goscan/core/utils"
 	"strings"
 )
 
@@ -56,13 +55,16 @@ func main() {
 	// Setup core
 	initCore()
 
+	// Start receiving stomp messages from RabbitMQ
+	rabbitmq.Receive()
+
 	// Start CLI
-	p := prompt.New(
-		cli.Executor,
-		cli.Completer,
-		prompt.OptionTitle("goscan: Interactive Network Scanner"),
-		prompt.OptionPrefix("[goscan] > "),
-		prompt.OptionInputTextColor(prompt.White),
-	)
-	p.Run()
+	//p := prompt.New(
+	//	cli.Executor,
+	//	cli.Completer,
+	//	prompt.OptionTitle("goscan: Interactive Network Scanner"),
+	//	prompt.OptionPrefix("[goscan] > "),
+	//	prompt.OptionInputTextColor(prompt.White),
+	//)
+	//p.Run()
 }

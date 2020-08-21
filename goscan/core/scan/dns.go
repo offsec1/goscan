@@ -3,11 +3,13 @@ package scan
 import (
 	"bufio"
 	"fmt"
-	"github.com/marco-lancini/goscan/core/utils"
+	"github.com/offsec1/goscan/core/utils"
 	"os"
 	"path/filepath"
 	"strings"
 )
+
+//TODO this needs a better subdomain enum and maybe a database for all domains
 
 // ---------------------------------------------------------------------------------------
 // DISPATCHER

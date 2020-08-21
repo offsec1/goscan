@@ -3,7 +3,7 @@ package utils
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"github.com/marco-lancini/goscan/core/model"
+	"github.com/offsec1/goscan/core/model"
 	"os"
 	"os/exec"
 	"os/user"
@@ -47,19 +47,27 @@ var WORDLIST_HYDRA_FTP_PWD = WORDLIST_MSF_PWDS
 // CONFIG
 // ---------------------------------------------------------------------------------------
 type config struct {
-	Outfolder string
-	Log       *Logger
-	DB        *gorm.DB
-	DBPath    string
+	Outfolder   string
+	Log         *Logger
+	DB          *gorm.DB
+	DBPath      string
+	RabbitMQUri string
 }
 
 // Initialize global config (db, logger, etc.)
 // From now on it will be accessible as utils.Config
 func InitConfig() {
 	Config = config{}
-	
+
 	// Initialize logger
 	Config.Log = InitLogger()
+
+	// Init RabbitMQ URI
+	if os.Getenv("RABBITMQ_URI") != "" {
+		Config.RabbitMQUri = os.Getenv("RABBITMQ_URI")
+	} else {
+		Config.RabbitMQUri = "amqp://guest:guest@localhost:5672/"
+	}
 
 	// Create output folder
 	if os.Getenv("OUT_FOLDER") != "" {
@@ -91,7 +99,6 @@ func ChangeOutFolder(path string) {
 	Config.DB = model.InitDB(Config.DBPath)
 	Config.Log.LogDebug("Connected to DB")
 }
-
 
 // ---------------------------------------------------------------------------------------
 // MANAGE COMMANDS
