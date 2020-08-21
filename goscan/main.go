@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/fatih/color"
-	"github.com/marco-lancini/goscan/core/rabbitmq"
-	"github.com/marco-lancini/goscan/core/utils"
+	"github.com/offsec1/goscan/core/rabbitmq"
+	"github.com/offsec1/goscan/core/utils"
 	"strings"
 )
 

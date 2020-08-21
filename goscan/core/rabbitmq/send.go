@@ -1,7 +1,7 @@
 package rabbitmq
 
 import (
-	"github.com/marco-lancini/goscan/core/utils"
+	"github.com/offsec1/goscan/core/utils"
 	"github.com/streadway/amqp"
 	"log"
 )

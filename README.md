@@ -23,14 +23,14 @@ $ docker-compose up --build
 $ docker-compose run cli /bin/bash
 
 # Initialize DEP
-root@cli:/go/src/github.com/marco-lancini/goscan $ make init
-root@cli:/go/src/github.com/marco-lancini/goscan $ make setup
+root@cli:/go/src/github.com/offsec1/goscan $ make init
+root@cli:/go/src/github.com/offsec1/goscan $ make setup
 
 # Build
-root@cli:/go/src/github.com/marco-lancini/goscan $ make build
+root@cli:/go/src/github.com/offsec1/goscan $ make build
 
 # To create a multi-platform binary, use the cross command via make
-root@cli:/go/src/github.com/marco-lancini/goscan $ make cross
+root@cli:/go/src/github.com/offsec1/goscan $ make cross
 ```
 
 

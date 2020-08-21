@@ -3,7 +3,7 @@ package utils
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"github.com/marco-lancini/goscan/core/model"
+	"github.com/offsec1/goscan/core/model"
 	"os"
 	"os/exec"
 	"os/user"

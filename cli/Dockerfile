@@ -9,10 +9,10 @@ ENV GOPATH=/go
 ENV PATH=$PATH:/go/bin
 
 # Setup workdir
-WORKDIR /go/src/github.com/marco-lancini/goscan
+WORKDIR /go/src/github.com/offsec1/goscan
 
 # Setup project
-#COPY goscan/ /go/src/github.com/marco-lancini/goscan
+#COPY goscan/ /go/src/github.com/offsec1/goscan
 #RUN CGO_ENABLED=0 go build -o /bin/goscan
 
 #FROM scratch
