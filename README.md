@@ -4,41 +4,20 @@ This is a fork from: [GoScan](https://www.github.com/marco-lancini/goscan)
 
 **GoScan** is an interactive network scanner client, featuring auto-completion, which provides abstraction and automation over nmap.
 
-Although it started as a small side-project I developed in order to learn [@golang](https://twitter.com/golang), GoScan can now be used to perform host discovery, port scanning, and service enumeration not only in situations where being stealthy is not a priority and time is limited (think at CTFs, OSCP, exams, etc.), but also (with a few tweaks in its configuration) during professional engagements.
+It uses a message-broker to receive input commands and scan targets. 
+The results of these scans are then committed to a postgres database.
 
-GoScan is also particularly suited for unstable environments (think unreliable network connectivity, lack of "`screen`", etc.), given that it fires scans and maintain their state in an SQLite database. Scans run in the background (detached from the main thread), so even if connection to the box running GoScan is lost, results can be uploaded asynchronously (more on this below). That is, data can be imported into GoScan at different stages of the process, without the need to restart the entire process from scratch if something goes wrong.
-
-In addition, the Service Enumeration phase integrates a collection of other tools (e.g., `EyeWitness`, `Hydra`, `nikto`, etc.), each one tailored to target a specific service.
-
-![demo](https://raw.githubusercontent.com/marco-lancini/goscan/master/.github/demo.gif)
+![demo](https://raw.githubusercontent.com/offsec1/goscan/master/.github/demo.gif)
 
 
 
 # Installation
 
-#### Binary installation (Recommended)
-
-Binaries are available from the [Release](https://github.com/marco-lancini/goscan/releases) page.
-
-```bash
-# Linux (64bit)
-$ wget https://github.com/marco-lancini/goscan/releases/download/v2.4/goscan_2.4_linux_amd64.zip
-$ unzip goscan_2.4_linux_amd64.zip
-
-# Linux (32bit)
-$ wget https://github.com/marco-lancini/goscan/releases/download/v2.4/goscan_2.4_linux_386.zip
-$ unzip goscan_2.4_linux_386.zip
-
-# After that, place the executable in your PATH
-$ chmod +x goscan
-$ sudo mv ./goscan /usr/local/bin/goscan
-```
-
 #### Build from source
 
 ```bash
 # Clone and spin up the project
-$ git clone https://github.com/marco-lancini/goscan.git
+$ git clone https://github.com/offsec1/goscan.git
 $ cd goscan/
 $ docker-compose up --build
 $ docker-compose run cli /bin/bash
@@ -63,7 +42,8 @@ This tool extends GoScan.
 It integrates the possibility to control GoScan via RabbitMQ messages. 
 This makes GoScan remotely usable.
 
-## Script overview
+## Message overview
+Example messages which can be sent to this tool.
 
 * `load target SINGLE [IP]`
 * `sweep PING [IP]`
