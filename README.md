@@ -48,6 +48,7 @@ Example messages which can be sent to this tool.
 * `load target SINGLE [IP]`
 * `sweep PING [IP]`
 * `portscan TCP-FULL [IP]`
+* `portscan TCP-STANDARD [IP]`
 * `special dns DISCOVERY scanme.org`
 * `special dns BRUTEFORCE scanme.org`
 * `show hosts`

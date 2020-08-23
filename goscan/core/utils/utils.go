@@ -23,8 +23,8 @@ var Const_example_target_desc = "Target CIDR or /32 for single target"
 // NMAP COMMANDS
 var Const_UDP_PORTS = "19,53,69,79,111,123,135,137,138,161,177,445,500,514,520,1434,1900,5353"
 var Const_NMAP_SWEEP = "-n -sn -PE -PP"
-var Const_NMAP_TCP_FULL = "--randomize-hosts -Pn -sS -sC -A -T4 -g53 -p-"
-var Const_NMAP_TCP_STANDARD = "--randomize-hosts -Pn -sS -A -T4 -g53 --top-ports 1000"
+var Const_NMAP_TCP_FULL = "--randomize-hosts -Pn -sS -sC -A -T4 -p-"
+var Const_NMAP_TCP_STANDARD = "--randomize-hosts -Pn -sS -A -T4 --top-ports 1000"
 var Const_NMAP_TCP_PROD = "--randomize-hosts -Pn -sT -sV -T3 -p-"
 var Const_NMAP_TCP_VULN = "--randomize-hosts -Pn -sT -sV -p- --script=vulscan/vulscan.nse"
 var Const_NMAP_UDP_STANDARD = fmt.Sprintf("--randomize-hosts -Pn -sU -sC -A -T4 -p%s", Const_UDP_PORTS)
